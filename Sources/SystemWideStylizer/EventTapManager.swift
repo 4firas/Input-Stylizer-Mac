@@ -73,7 +73,8 @@ final class EventTapManager {
     ///   Accessibility permissions are missing (the most common failure cause).
     @discardableResult
     func start() -> Bool {
-        guard eventTap == nil else { return true } // already running
+        // Always stop first to allow clean re-creation (e.g. after permission change)
+        stop()
 
         // We only care about keyDown events.
         let eventMask: CGEventMask = 1 << CGEventType.keyDown.rawValue
@@ -108,15 +109,22 @@ final class EventTapManager {
 
     /// Disables and removes the event tap.
     func stop() {
-        if let tap = eventTap {
-            CGEvent.tapEnable(tap: tap, enable: false)
-        }
         if let source = runLoopSource {
             CFRunLoopRemoveSource(CFRunLoopGetMain(), source, .commonModes)
+            runLoopSource = nil
         }
-        eventTap = nil
-        runLoopSource = nil
+        if let tap = eventTap {
+            CGEvent.tapEnable(tap: tap, enable: false)
+            eventTap = nil
+        }
         print("[EventTapManager] Event tap stopped.")
+    }
+
+    /// Restarts the tap (stop + start). Useful after permission changes.
+    @discardableResult
+    func restart() -> Bool {
+        print("[EventTapManager] Restarting event tap...")
+        return start()
     }
 
     // MARK: - C Callback (static)

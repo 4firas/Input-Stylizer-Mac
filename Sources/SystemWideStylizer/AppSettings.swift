@@ -9,6 +9,7 @@ enum Provider: String, CaseIterable, Identifiable {
     case lmStudio   = "LM Studio"
     case openRouter  = "OpenRouter"
     case openAI      = "OpenAI"
+    case opencodeGo  = "OpenCode Go"
     case custom      = "Custom"
 
     var id: String { rawValue }
@@ -16,20 +17,22 @@ enum Provider: String, CaseIterable, Identifiable {
     /// Default base URL for each provider (without trailing `/v1/chat/completions`).
     var defaultBaseURL: String {
         switch self {
-        case .lmStudio:  return "http://localhost:1234/v1"
+        case .lmStudio:   return "http://localhost:1234/v1"
         case .openRouter: return "https://openrouter.ai/api/v1"
-        case .openAI:    return "https://api.openai.com/v1"
-        case .custom:    return ""
+        case .openAI:     return "https://api.openai.com/v1"
+        case .opencodeGo: return "https://opencode.ai/zen/go/v1"
+        case .custom:     return ""
         }
     }
 
     /// Sensible default model identifier per provider.
     var defaultModel: String {
         switch self {
-        case .lmStudio:  return "local-model"
+        case .lmStudio:   return "local-model"
         case .openRouter: return "openai/gpt-4o"
-        case .openAI:    return "gpt-4o"
-        case .custom:    return ""
+        case .openAI:     return "gpt-4o"
+        case .opencodeGo: return "deepseek-v4-flash"
+        case .custom:     return ""
         }
     }
 
@@ -38,6 +41,36 @@ enum Provider: String, CaseIterable, Identifiable {
         switch self {
         case .lmStudio: return false
         default:        return true
+        }
+    }
+
+    /// Pre-defined model list for providers with known model sets.
+    /// Empty array means free-form text entry.
+    var modelList: [String] {
+        switch self {
+        case .opencodeGo:
+            return [
+                "deepseek-v4-flash",
+                "deepseek-v4-pro",
+                "kimi-k2.6",
+                "kimi-k2.5",
+                "glm-5",
+                "glm-5.1",
+                "mimo-v2-pro",
+                "mimo-v2-omni",
+                "mimo-v2.5",
+                "mimo-v2.5-pro",
+                "minimax-m2.5",
+                "minimax-m2.7",
+                "minimax-m3",
+                "qwen3.5-plus",
+                "qwen3.6-plus",
+                "qwen3.7-plus",
+                "qwen3.7-max",
+                "hy3-preview",
+            ]
+        default:
+            return []
         }
     }
 }

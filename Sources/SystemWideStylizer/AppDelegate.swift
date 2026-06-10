@@ -27,6 +27,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     /// Monitor for clicks outside the popover (to dismiss it).
     private var outsideClickMonitor: Any?
 
+    /// Permission polling timer — kept as property so we can restart it.
+    private weak var permissionTimer: Timer?
+
     // MARK: - App Lifecycle
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -35,7 +38,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
 
         setupPopover()
         setupStatusItem()
-        startEventTap()
+        setupEventTap()
 
         // Request Accessibility permission on first launch (shows system dialog).
         AccessibilityHelper.requestPermission()
@@ -57,7 +60,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         button.action = #selector(togglePopover(_:))
         button.target = self
 
-        // Update icon appearance based on enabled state
         updateStatusItemIcon()
 
         // Observe changes to isEnabled to update the icon dynamically
@@ -78,11 +80,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     private func updateStatusItemIcon() {
         guard let button = statusItem?.button else { return }
 
-        // Tint the icon to indicate active/inactive state.
         if settings.isEnabled && AccessibilityHelper.isTrusted() {
             button.contentTintColor = NSColor.controlAccentColor
         } else {
-            button.contentTintColor = nil // default appearance
+            button.contentTintColor = nil
         }
     }
 
@@ -117,7 +118,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         } else {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
 
-            // Install a global click monitor to close the popover when clicking outside.
             outsideClickMonitor = NSEvent.addGlobalMonitorForEvents(
                 matching: [.leftMouseDown, .rightMouseDown]
             ) { [weak self] _ in
@@ -138,7 +138,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     // MARK: - Settings Window
 
     private func openSettingsWindow() {
-        // If the window already exists, just bring it to front.
         if let window = settingsWindow, window.isVisible {
             window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
@@ -157,7 +156,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         window.isReleasedWhenClosed = false
         window.makeKeyAndOrderFront(nil)
 
-        // Temporarily switch activation policy so the window can receive focus.
         NSApp.activate(ignoringOtherApps: true)
 
         settingsWindow = window
@@ -165,26 +163,42 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
 
     // MARK: - Event Tap
 
-    private func startEventTap() {
+    /// Creates the manager and attempts to start the tap.
+    /// If permission is not yet granted, polls until it is — and keeps polling
+    /// so the tap is re-created if permission is ever revoked and re-granted.
+    private func setupEventTap() {
         eventTapManager = EventTapManager(settings: settings)
-
-        if AccessibilityHelper.isTrusted() {
-            eventTapManager?.start()
-        } else {
-            // Poll for permission in the background and start the tap once granted.
-            pollForAccessibilityPermission()
-        }
+        tryStartOrPollPermission()
     }
 
-    /// Periodically checks if Accessibility permission has been granted, and starts
-    /// the event tap as soon as it is.
-    private func pollForAccessibilityPermission() {
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] timer in
+    private func tryStartOrPollPermission() {
+        // Invalidate any existing timer
+        permissionTimer?.invalidate()
+
+        if AccessibilityHelper.isTrusted() {
+            let started = eventTapManager?.start() ?? false
+            if started {
+                updateStatusItemIcon()
+                print("[AppDelegate] Event tap started.")
+            }
+            // Even if start succeeded, keep polling to detect
+            // future permission revoke → re-grant cycles.
+        }
+
+        // Poll every 2s regardless, so we catch permission changes
+        permissionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+
             if AccessibilityHelper.isTrusted() {
-                timer.invalidate()
-                self?.eventTapManager?.start()
-                self?.updateStatusItemIcon()
-                print("[AppDelegate] Accessibility permission granted — event tap started.")
+                // Tap might fail if permission changed; restart ensures fresh tap
+                let started = self.eventTapManager?.restart() ?? false
+                if started {
+                    self.updateStatusItemIcon()
+                }
+            } else {
+                // Permission was revoked — stop the tap and grey out icon
+                self.eventTapManager?.stop()
+                self.updateStatusItemIcon()
             }
         }
     }
