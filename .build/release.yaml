@@ -1,0 +1,66 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "SystemWideStylizer-arm64-apple-macosx-release.exe": ["<SystemWideStylizer-arm64-apple-macosx-release.exe>"]
+  "SystemWideStylizer-arm64-apple-macosx-release.module": ["<SystemWideStylizer-arm64-apple-macosx-release.module>"]
+  "main": ["<SystemWideStylizer-arm64-apple-macosx-release.exe>","<SystemWideStylizer-arm64-apple-macosx-release.module>"]
+  "test": ["<SystemWideStylizer-arm64-apple-macosx-release.exe>","<SystemWideStylizer-arm64-apple-macosx-release.module>"]
+default: "main"
+nodes:
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/APIClient.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AccessibilityHelper.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppDelegate.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppSettings.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/EventTapManager.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/SystemWideStylizerApp.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/MenuBarPopupView.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/PermissionBannerView.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/SettingsView.swift"]
+    outputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources"]
+    description: "Write auxiliary file /Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources"
+
+  "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/APIClient.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AccessibilityHelper.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppDelegate.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppSettings.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/EventTapManager.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/MenuBarPopupView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/PermissionBannerView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SettingsView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SystemWideStylizerApp.swift.o"]
+    outputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.product/Objects.LinkFileList"
+
+  "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<SystemWideStylizer-arm64-apple-macosx-release.exe>":
+    tool: phony
+    inputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer"]
+    outputs: ["<SystemWideStylizer-arm64-apple-macosx-release.exe>"]
+
+  "<SystemWideStylizer-arm64-apple-macosx-release.module>":
+    tool: phony
+    inputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/APIClient.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AccessibilityHelper.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppDelegate.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppSettings.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/EventTapManager.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SystemWideStylizerApp.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/MenuBarPopupView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/PermissionBannerView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SettingsView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules/SystemWideStylizer.swiftmodule"]
+    outputs: ["<SystemWideStylizer-arm64-apple-macosx-release.module>"]
+
+  "C.SystemWideStylizer-arm64-apple-macosx-release.exe":
+    tool: shell
+    inputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/APIClient.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AccessibilityHelper.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppDelegate.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppSettings.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/EventTapManager.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/MenuBarPopupView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/PermissionBannerView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SettingsView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SystemWideStylizerApp.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.product/Objects.LinkFileList"]
+    outputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer"]
+    description: "Linking ./.build/arm64-apple-macosx/release/SystemWideStylizer"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release","-o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer","-module-name","SystemWideStylizer","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-dead_strip","-Xlinker","-alias","-Xlinker","_SystemWideStylizer_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-Xlinker","-sectcreate","-Xlinker","__TEXT","-Xlinker","__info_plist","-Xlinker","Sources/SystemWideStylizer/Info.plist","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g"]
+
+  "C.SystemWideStylizer-arm64-apple-macosx-release.module":
+    tool: shell
+    inputs: ["/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/APIClient.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AccessibilityHelper.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppDelegate.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppSettings.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/EventTapManager.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/SystemWideStylizerApp.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/MenuBarPopupView.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/PermissionBannerView.swift","/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/SettingsView.swift","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources"]
+    outputs: ["/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/APIClient.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AccessibilityHelper.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppDelegate.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppSettings.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/EventTapManager.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SystemWideStylizerApp.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/MenuBarPopupView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/PermissionBannerView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SettingsView.swift.o","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules/SystemWideStylizer.swiftmodule"]
+    description: "Compiling Swift Module 'SystemWideStylizer' (9 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","SystemWideStylizer","-emit-dependencies","-emit-module","-emit-module-path","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules/SystemWideStylizer.swiftmodule","-output-file-map","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/output-file-map.json","-whole-module-optimization","-num-threads","10","-c","@/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources","-I","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx14.0","-whole-module-optimization","-num-threads","10","-serialize-diagnostics","-O","-j10","-DSWIFT_PACKAGE","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","SystemWideStylizer_main","-swift-version","5","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","stylizer"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/","/Users/fir4s/Documents/Projects/stylizer/Package.swift","/Users/fir4s/Documents/Projects/stylizer/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

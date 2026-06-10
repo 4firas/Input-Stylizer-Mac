@@ -1,0 +1,371 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.SystemWideStylizer-arm64-apple-macosx-release.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources",
+      "importPath" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/APIClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AccessibilityHelper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppSettings.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/EventTapManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/SystemWideStylizerApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/MenuBarPopupView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/PermissionBannerView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "SystemWideStylizer",
+      "moduleOutputPath" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules/SystemWideStylizer.swiftmodule",
+      "objects" : [
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/APIClient.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AccessibilityHelper.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppDelegate.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppSettings.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/EventTapManager.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SystemWideStylizerApp.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/MenuBarPopupView.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/PermissionBannerView.swift.o",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SettingsView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-O",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "SystemWideStylizer_main",
+        "-swift-version",
+        "5",
+        "-I",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-L",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "stylizer"
+      ],
+      "outputFileMapPath" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/APIClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AccessibilityHelper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppSettings.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/EventTapManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SystemWideStylizerApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/MenuBarPopupView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/PermissionBannerView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules/SystemWideStylizer.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/APIClient.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AccessibilityHelper.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppDelegate.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppSettings.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/EventTapManager.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/SystemWideStylizerApp.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/MenuBarPopupView.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/PermissionBannerView.swift",
+        "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/SettingsView.swift"
+      ],
+      "tempsPath" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build",
+      "wholeModuleOptimization" : true
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "SystemWideStylizer" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "SystemWideStylizer",
+      "-package-name",
+      "stylizer",
+      "-c",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/APIClient.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AccessibilityHelper.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppDelegate.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppSettings.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/EventTapManager.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/SystemWideStylizerApp.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/MenuBarPopupView.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/PermissionBannerView.swift",
+      "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/SettingsView.swift",
+      "-I",
+      "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-O",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "SystemWideStylizer_main",
+      "-swift-version",
+      "5",
+      "-I",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-L",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "stylizer",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "SystemWideStylizer" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/APIClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AccessibilityHelper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppSettings.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/EventTapManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/SystemWideStylizerApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/MenuBarPopupView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/PermissionBannerView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/SettingsView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/sources"
+    },
+    "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/APIClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AccessibilityHelper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/AppSettings.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/EventTapManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/MenuBarPopupView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/PermissionBannerView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.build/SystemWideStylizerApp.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/SystemWideStylizer.product/Objects.LinkFileList"
+    },
+    "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt"
+    }
+  }
+}

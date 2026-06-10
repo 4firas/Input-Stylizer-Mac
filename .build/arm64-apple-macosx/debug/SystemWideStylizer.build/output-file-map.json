@@ -1,0 +1,68 @@
+{
+  "": {
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/primary.swiftdeps"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/APIClient.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/APIClient.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/APIClient.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/APIClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/APIClient.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/APIClient.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AccessibilityHelper.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AccessibilityHelper.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AccessibilityHelper.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AccessibilityHelper~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AccessibilityHelper.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AccessibilityHelper.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppDelegate.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppDelegate.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppDelegate.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppDelegate.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppDelegate.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/AppSettings.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppSettings.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppSettings.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppSettings~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppSettings.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/AppSettings.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/EventTapManager.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/EventTapManager.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/EventTapManager.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/EventTapManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/EventTapManager.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/EventTapManager.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/SystemWideStylizerApp.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SystemWideStylizerApp.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SystemWideStylizerApp.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SystemWideStylizerApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SystemWideStylizerApp.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SystemWideStylizerApp.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/MenuBarPopupView.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/MenuBarPopupView.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/MenuBarPopupView.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/MenuBarPopupView~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/MenuBarPopupView.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/MenuBarPopupView.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/PermissionBannerView.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/PermissionBannerView.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/PermissionBannerView.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/PermissionBannerView~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/PermissionBannerView.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/PermissionBannerView.dia"
+  },
+  "/Users/fir4s/Documents/Projects/stylizer/Sources/SystemWideStylizer/Views/SettingsView.swift": {
+    "dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SettingsView.d",
+    "object": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SettingsView.swift.o",
+    "swiftmodule": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SettingsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SettingsView.swiftdeps",
+    "diagnostics": "/Users/fir4s/Documents/Projects/stylizer/.build/arm64-apple-macosx/debug/SystemWideStylizer.build/SettingsView.dia"
+  }
+}
