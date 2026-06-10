@@ -3,633 +3,638 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>systemwidestylizer</title>
-<meta name="description" content="a thing i made for mac that makes ur messages sound better. free. open source. kinda dumb.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<title>stylizer ~*~ the best site evar ~*~</title>
+<meta name="description" content="a thing i made for mac that hijacks ur return key and makes ur messages sound better. free. open source. made at 3am">
 <style>
-  /* ───────────────── Reset ───────────────── */
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  /* ─── kurokula color scheme (same as my pi theme) ─── */
   :root {
-    --pink: #ff2e88;
-    --cyan: #00f0ff;
-    --lime: #b8ff3a;
+    --bg: #131515;
+    --bg2: #181a1a;
+    --bg3: #1b1d1d;
+    --bg4: #1d1f1f;
+    --fg: #dfcfc2;
+    --gray: #505151;
+    --darkgray: #222424;
+    --red: #791c1c;
+    --reddark: #600303;
+    --redmid: #ac756f;
     --yellow: #fff600;
-    --purple: #2b1b4d;
-    --bg: #0d0420;
-    --fg: #f0e6ff;
-    --gray: #6a5a8a;
+    --white: #feffff;
+    --green: #aeffa4;
+    --salmon: #c35951;
+    --diffadded: #cce1b6;
+    --diffremoved: #d39d92;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'VT323', 'Courier New', monospace;
+    font-family: "Comic Sans MS", "Comic Sans", "Trebuchet MS", cursive, sans-serif;
     background-color: var(--bg);
     color: var(--fg);
     line-height: 1.4;
-    font-size: 20px;
+    font-size: 17px;
     min-height: 100vh;
     overflow-x: hidden;
     text-transform: lowercase;
     background-image:
-      linear-gradient(rgba(255, 46, 136, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-    animation: bgShift 30s linear infinite;
+      repeating-linear-gradient(0deg, transparent 0, transparent 39px, rgba(223, 207, 194, 0.04) 39px, rgba(223, 207, 194, 0.04) 40px),
+      repeating-linear-gradient(90deg, transparent 0, transparent 39px, rgba(223, 207, 194, 0.04) 39px, rgba(223, 207, 194, 0.04) 40px);
   }
 
-  @keyframes bgShift {
-    from { background-position: 0 0, 0 0; }
-    to   { background-position: 32px 32px, 32px 32px; }
+  a { color: var(--yellow); text-decoration: underline; }
+  a:hover { background: var(--red); color: var(--white); text-decoration: none; }
+
+  code, .mono {
+    font-family: "Courier New", "Lucida Console", monospace;
+    background: var(--darkgray);
+    color: var(--green);
+    padding: 1px 5px;
+    border: 1px dashed var(--gray);
+    font-size: 14px;
   }
 
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 3px,
-      rgba(0, 0, 0, 0.15) 3px,
-      rgba(0, 0, 0, 0.15) 4px
-    );
-    z-index: 999;
-    mix-blend-mode: multiply;
-  }
-
-  /* ───────────────── Marquee ───────────────── */
-  .marquee {
-    background: var(--pink);
-    color: #000;
-    padding: 6px 0;
-    border-top: 3px solid #000;
-    border-bottom: 3px solid #000;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    z-index: 10;
-  }
-  .marquee span {
-    display: inline-block;
-    padding-left: 100%;
-    animation: marquee 40s linear infinite;
-  }
-  @keyframes marquee {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
-
-  /* ───────────────── Star BG ───────────────── */
-  .stars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-  .star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle 3s infinite;
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(1); }
-    50%      { opacity: 1; transform: scale(1.4); }
-  }
-
-  /* ───────────────── Layout ───────────────── */
-  main {
-    position: relative;
-    z-index: 2;
-    max-width: 880px;
+  .wrap {
+    max-width: 760px;
     margin: 0 auto;
-    padding: 24px 20px 80px;
+    padding: 10px;
   }
 
-  .window {
-    background: var(--purple);
-    border: 3px solid #000;
-    box-shadow: 6px 6px 0 var(--pink), 6px 6px 0 4px #000;
-    margin-bottom: 36px;
-  }
-
-  .title-bar {
-    background: linear-gradient(90deg, var(--pink), var(--cyan));
-    color: #000;
+  /* ─── top nav, slightly crooked ─── */
+  .topbar {
+    background: linear-gradient(180deg, var(--red) 0%, var(--reddark) 100%);
+    color: var(--white);
     padding: 6px 12px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-    border-bottom: 3px solid #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-transform: uppercase;
+    font-size: 14px;
+    border: 2px solid #000;
+    margin-bottom: 12px;
+    transform: rotate(-0.3deg);
   }
-  .title-bar .dots { display: flex; gap: 4px; }
-  .title-bar .dot { width: 12px; height: 12px; background: #000; border: 2px solid #000; }
+  .topbar a { color: var(--white); margin-right: 14px; }
+  .topbar a:hover { background: var(--yellow); color: #000; }
+  .topbar .right { float: right; }
 
-  .window-content { padding: 20px; }
-
-  /* ───────────────── Hero ───────────────── */
+  /* ─── hero (slightly off-center on purpose) ─── */
   .hero {
-    text-align: center;
-    padding: 40px 20px 30px;
-    background:
-      radial-gradient(ellipse at center, rgba(255, 46, 136, 0.25), transparent 70%),
-      var(--purple);
+    background: var(--bg2);
+    border: 3px ridge var(--red);
+    padding: 18px 22px 22px;
+    margin-bottom: 14px;
+    text-align: left;
+    box-shadow: 4px 4px 0 var(--red);
+    position: relative;
   }
   .hero h1 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 28px;
-    line-height: 1.4;
-    margin-bottom: 16px;
-    text-shadow: 4px 4px 0 var(--cyan), 8px 8px 0 var(--pink);
-    text-transform: uppercase;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 38px;
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 var(--red), 4px 4px 0 var(--bg);
+    line-height: 1.1;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
   }
-  .hero h1 .accent { color: var(--yellow); }
-  .hero .tagline {
-    font-size: 22px;
-    color: var(--cyan);
-    margin-bottom: 20px;
+  .hero h1 .red { color: var(--salmon); }
+  .hero .subtitle {
+    font-size: 16px;
+    color: var(--green);
+    margin-bottom: 14px;
+    font-style: italic;
   }
-  .hero .blurb {
-    font-size: 19px;
-    max-width: 540px;
-    margin: 0 auto 24px;
+  .hero p {
+    font-size: 16px;
+    margin-bottom: 10px;
     color: var(--fg);
   }
-
-  /* ───────────────── Badges ───────────────── */
-  .badges {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 16px;
+  .hero p.sig {
+    color: var(--gray);
+    font-size: 13px;
+    margin-top: 14px;
+    text-align: right;
   }
-  .badge {
-    display: inline-block;
-    padding: 6px 12px;
-    background: var(--lime);
+  .hero .weird {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--yellow);
     color: #000;
-    border: 2px solid #000;
-    font-family: 'Silkscreen', monospace;
+    padding: 4px 10px;
     font-size: 11px;
-    text-transform: lowercase;
-    transform: rotate(-1deg);
-    box-shadow: 3px 3px 0 #000;
-    font-weight: 700;
-  }
-  .badge:nth-child(2n) { transform: rotate(1deg); background: var(--yellow); }
-  .badge:nth-child(3n) { transform: rotate(-2deg); background: var(--cyan); }
-  .badge:nth-child(5n) { background: var(--pink); color: #fff; }
-
-  /* ───────────────── Section headers ───────────────── */
-  h2 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 16px;
-    color: var(--yellow);
-    margin-bottom: 16px;
-    text-shadow: 2px 2px 0 var(--pink);
-    text-transform: uppercase;
-  }
-  h3 {
-    font-family: 'Silkscreen', monospace;
-    font-size: 18px;
-    color: var(--cyan);
-    margin-bottom: 8px;
+    font-weight: bold;
+    transform: rotate(8deg);
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0 #000;
   }
 
-  p { margin-bottom: 12px; }
-
-  a { color: var(--cyan); text-decoration: underline; }
-  a:hover { color: var(--pink); background: var(--yellow); color: #000; }
-
-  code {
-    background: #000;
-    color: var(--lime);
-    padding: 2px 6px;
-    border: 1px solid var(--lime);
-    font-family: 'VT323', monospace;
-    font-size: 18px;
+  /* ─── section cards (a lil inconsistent on purpose) ─── */
+  .card {
+    background: var(--bg2);
+    border: 2px solid var(--gray);
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    position: relative;
   }
+  .card.redborder { border-color: var(--red); }
+  .card.yellowborder { border-color: var(--yellow); }
+  .card h2 {
+    font-family: "Comic Sans MS", cursive;
+    font-size: 22px;
+    color: var(--redmid);
+    margin-bottom: 10px;
+    text-decoration: underline wavy var(--yellow);
+    text-underline-offset: 4px;
+  }
+  .card h2 .small { font-size: 14px; color: var(--gray); text-decoration: none; }
+  .card p { margin-bottom: 10px; }
 
-  /* ───────────────── Preset Grid ───────────────── */
-  .preset-grid {
+  /* ─── preset grid (small) ─── */
+  .presets {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-top: 8px;
   }
   .preset {
-    background: #000;
-    border: 2px solid var(--lime);
-    padding: 10px;
-    transition: transform 0.1s;
-  }
-  .preset:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 var(--pink);
-  }
-  .preset .name {
-    font-family: 'Silkscreen', monospace;
+    background: var(--darkgray);
+    border: 1px solid var(--gray);
+    padding: 6px 10px;
     font-size: 14px;
-    color: var(--yellow);
-    margin-bottom: 4px;
   }
-  .preset .desc {
-    font-size: 16px;
-    color: var(--fg);
-    opacity: 0.85;
-    line-height: 1.2;
-  }
+  .preset b { color: var(--yellow); display: block; font-size: 13px; }
+  .preset span { color: var(--fg); opacity: 0.8; }
 
-  /* ───────────────── Steps ───────────────── */
-  ol.steps {
+  /* ─── install steps ─── */
+  ol.howto {
     list-style: none;
-    counter-reset: step;
+    counter-reset: stp;
+    margin: 6px 0;
   }
-  ol.steps li {
-    counter-increment: step;
+  ol.howto li {
+    counter-increment: stp;
+    padding: 4px 0 4px 36px;
     position: relative;
-    padding: 8px 0 8px 50px;
-    border-bottom: 1px dashed var(--gray);
+    border-bottom: 1px dotted var(--darkgray);
   }
-  ol.steps li::before {
-    content: counter(step);
+  ol.howto li::before {
+    content: counter(stp) ".";
     position: absolute;
     left: 0;
-    top: 8px;
-    width: 32px;
-    height: 32px;
-    background: var(--pink);
-    color: #000;
-    border: 2px solid #000;
-    font-family: 'Press Start 2P', monospace;
+    color: var(--salmon);
+    font-weight: bold;
+    font-family: "Courier New", monospace;
+  }
+
+  /* ─── FAQ ─── */
+  .faq-q {
+    color: var(--green);
+    font-weight: bold;
+    margin-top: 8px;
+  }
+  .faq-a {
+    margin-bottom: 6px;
+    padding-left: 12px;
+    border-left: 2px solid var(--gray);
+  }
+
+  /* ─── side widgets (random floaty things) ─── */
+  .widget {
+    background: var(--bg3);
+    border: 1px solid var(--gray);
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  .widget h3 {
+    color: var(--redmid);
     font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
-  ol.steps li strong { color: var(--cyan); }
-
-  /* ───────────────── FAQ ───────────────── */
-  details {
-    background: #000;
-    border: 2px solid var(--gray);
-    margin-bottom: 8px;
-    padding: 10px 14px;
-    transition: border-color 0.2s;
-  }
-  details[open] { border-color: var(--lime); }
-  summary {
-    cursor: pointer;
-    font-family: 'Silkscreen', monospace;
-    font-size: 16px;
+  .widget .stat {
     color: var(--yellow);
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-family: "Courier New", monospace;
+    font-size: 18px;
+    font-weight: bold;
   }
-  summary::before {
-    content: "▶";
-    color: var(--pink);
-    transition: transform 0.2s;
-  }
-  details[open] summary::before { transform: rotate(90deg); }
-  details p { margin-top: 10px; color: var(--fg); }
+  .widget .small { color: var(--gray); font-size: 12px; }
 
-  /* ───────────────── CTA ───────────────── */
-  .cta {
+  /* ─── webring ─── */
+  .webring {
+    background: var(--darkgray);
+    border: 2px dashed var(--red);
+    padding: 8px 12px;
+    margin: 14px 0;
     text-align: center;
-    padding: 30px 20px;
-    background:
-      repeating-linear-gradient(45deg,
-        var(--pink) 0,
-        var(--pink) 10px,
-        #000 10px,
-        #000 20px);
-    border: 4px solid #000;
+    font-size: 13px;
   }
-  .cta-inner {
-    background: var(--purple);
-    border: 3px solid #000;
-    padding: 20px;
+  .webring a { margin: 0 8px; }
+
+  /* ─── poll (fake) ─── */
+  .poll {
+    background: var(--bg4);
+    border: 1px solid var(--yellow);
+    padding: 10px;
+    margin: 10px 0;
   }
+  .poll label { display: block; font-size: 13px; padding: 2px 0; cursor: pointer; }
+  .poll button {
+    margin-top: 6px;
+    background: var(--red);
+    color: var(--white);
+    border: 2px outset var(--redmid);
+    padding: 2px 10px;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .poll button:active { border-style: inset; }
+
+  /* ─── buttons (chunky) ─── */
   .btn {
     display: inline-block;
-    padding: 14px 28px;
-    background: var(--lime);
-    color: #000;
-    border: 3px solid #000;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
-    text-decoration: none;
-    box-shadow: 6px 6px 0 #000;
-    transition: transform 0.1s, box-shadow 0.1s;
-    margin: 6px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .btn:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 4px 4px 0 #000;
-    background: var(--yellow);
-  }
-  .btn.alt { background: var(--cyan); }
-  .btn.alt:hover { background: var(--pink); color: #fff; }
-
-  /* ───────────────── Footer ───────────────── */
-  footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    color: var(--gray);
-    font-size: 14px;
-  }
-  footer .counter {
-    display: inline-block;
-    background: #000;
-    border: 2px solid var(--lime);
-    padding: 4px 10px;
-    color: var(--lime);
-    font-family: 'VT323', monospace;
+    background: var(--red);
+    color: var(--white);
+    border: 3px outset var(--redmid);
+    padding: 6px 14px;
+    font-family: inherit;
     font-size: 16px;
-    margin-top: 8px;
-    letter-spacing: 2px;
+    text-decoration: none;
+    margin: 4px 6px 4px 0;
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--reddark); }
+  .btn:active { border-style: inset; }
+  .btn.alt { background: var(--yellow); color: #000; border-color: var(--red); }
+  .btn.alt:hover { background: var(--red); color: var(--white); }
+
+  /* ─── "under construction" marquee ─── */
+  .construction {
+    background: repeating-linear-gradient(45deg, var(--yellow) 0, var(--yellow) 10px, #000 10px, #000 20px);
+    color: #000;
+    padding: 4px 0;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 10px 0;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
   }
 
-  /* ───────────────── Blink ───────────────── */
-  .blink { animation: blink 1.1s steps(2, end) infinite; }
+  /* ─── footer ─── */
+  footer {
+    margin-top: 20px;
+    padding: 14px 0;
+    border-top: 1px dashed var(--gray);
+    text-align: center;
+    color: var(--gray);
+    font-size: 12px;
+  }
+  footer a { color: var(--green); }
+  footer .blink { color: var(--red); font-weight: bold; }
+
+  /* ─── blink ─── */
+  .blink { animation: blink 1.2s steps(2) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* ───────────────── Sparkle ───────────────── */
-  .sparkle {
-    display: inline-block;
-    color: var(--yellow);
-    animation: spin 2s linear infinite;
+  /* ─── floating msn-style chat ─── */
+  .msn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 200px;
+    background: linear-gradient(180deg, #1e90ff 0%, #0066cc 100%);
+    border: 2px solid #000;
+    color: var(--white);
+    font-size: 12px;
+    z-index: 9998;
+    font-family: "Tahoma", "MS Sans Serif", sans-serif;
+    box-shadow: 3px 3px 0 #000;
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  a, .btn, summary, .preset, .badge { cursor: pointer; }
-
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 18px; }
-    .hero h1 { text-shadow: 3px 3px 0 var(--cyan), 6px 6px 0 var(--pink); }
-    body { font-size: 18px; }
-    .preset-grid { grid-template-columns: 1fr; }
+  .msn .head {
+    background: linear-gradient(180deg, #2b9fff, #1a6fc9);
+    padding: 3px 6px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    cursor: move;
   }
+  .msn .body { padding: 6px; }
+  .msn .typing { color: #cce6ff; font-style: italic; font-size: 11px; }
+  .msn .msg { background: #ffffcc; color: #000; padding: 3px 6px; margin: 4px 0; border: 1px solid #999; }
+  .msn input {
+    width: 100%;
+    border: 1px solid #000;
+    padding: 2px 4px;
+    font-family: inherit;
+    font-size: 12px;
+  }
+  @media (max-width: 600px) { .msn { display: none; } }
+
+  /* ─── cursor ─── */
+  a, .btn, summary, .preset, button { cursor: pointer; }
+
+  /* ─── sparkly text ─── */
+  .sparkle { color: var(--yellow); }
 </style>
 </head>
 <body>
 
-<div class="stars" id="stars"></div>
+<div class="wrap">
 
-<div class="marquee">
-  <span>
-    ★ NEW!! 13 styles ★ works everywhere ★ free forever probably ★ 1.1mb ★ NEW!! 13 styles ★ works everywhere ★ free forever probably ★ 1.1mb ★ NEW!! 13 styles ★ works everywhere ★ free forever probably ★ 1.1mb ★
-  </span>
+<!-- ─── top bar ─── -->
+<div class="topbar">
+  <a href="#home">home</a>
+  <a href="#what">what is it</a>
+  <a href="#styles">styles</a>
+  <a href="#install">install</a>
+  <a href="#faq">faq</a>
+  <a href="https://github.com/4firas/Input-Stylizer-Mac">github</a>
+  <span class="right">🌐 <span id="flag">🇺🇸</span> | <span class="blink">●</span> 1 user online</span>
 </div>
 
-<main>
+<!-- ─── hero ─── -->
+<div class="hero" id="home">
+  <div class="weird">★ NEW ★</div>
+  <h1>systemwide <span class="red">stylizer</span>!!</h1>
+  <div class="subtitle">~*~ the app that makes u sound smart ~*~</div>
+  <p>
+    ok so basically i made this thing for mac and it like, watches when u hit
+    <code>return</code> and right before the msg sends it runs what u typed thru
+    an ai and rewrites it. in whatever style u picked. yoda. pirate. gen z.
+    shakespeare. whatever
+  </p>
+  <p>
+    u dont do anything different. u just type and press enter like always and
+    suddenly ur messages are 30% better (or weirder lol)
+  </p>
+  <p>
+    <a class="btn" href="https://github.com/4firas/Input-Stylizer-Mac/releases">⬇ download!!!</a>
+    <a class="btn alt" href="https://github.com/4firas/Input-Stylizer-Mac">⭐ star on github</a>
+  </p>
+  <p class="sig">~ made by 4firas @ 3am ~ v1.0.0 ~ last updated whenever</p>
+</div>
 
-  <!-- ─────────────── HERO ─────────────── -->
-  <div class="window">
-    <div class="title-bar">
-      <span>hi.txt</span>
-      <div class="dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-    </div>
-    <div class="hero">
-      <h1>systemwide<br><span class="accent">stylizer</span></h1>
-      <p class="tagline">press enter but make it <span class="sparkle">✨</span> different</p>
-      <p class="blurb">
-        ok so basically this is a tiny thing i made for mac that watches for when u hit enter
-        and right before it sends ur message it like, runs it thru an ai and makes it sound
-        better. or weirder. depends on what u pick
-      </p>
-      <div class="badges">
-        <div class="badge">🚢 ships to ur messages</div>
-        <div class="badge">🔒 100% local</div>
-        <div class="badge">🦄 has vibes</div>
-        <div class="badge">⌘ works in any text box</div>
-        <div class="badge">👴 makes u sound like u slept</div>
-        <div class="badge">🐙 free to read all the code</div>
-      </div>
-    </div>
+<!-- ─── site stats widget ─── -->
+<div class="widget">
+  <h3>📊 site stats</h3>
+  <div>visitors: <span class="stat" id="visits">0000042</span></div>
+  <div class="small">u r visitor #<span id="vnum">42</span>!! (hi)</div>
+  <div class="small">online now: <span class="blink" style="color: var(--green)">●</span> 1 person (might be me, might be a bot, idk)</div>
+  <div class="small">most visitors ever: 69 (lol) on 11/12/2003</div>
+</div>
+
+<!-- ─── what is it ─── -->
+<div class="card" id="what">
+  <h2>what is it tho??</h2>
+  <p>
+    ok so like, imagine ur typing a discord msg to ur friend. u write "ok ill
+    be there in 5". u hit enter. instead of sending that tho, this lil app
+    takes "ok ill be there in 5", runs it thru an ai, and depending on what
+    style u picked, it sends one of these instead:
+  </p>
+  <p style="padding-left: 14px; border-left: 3px solid var(--yellow); margin: 8px 0; color: var(--green);">
+    <i>charisma:</i> "i shall make my arrival within the next five minutes, dear friend"
+  </p>
+  <p style="padding-left: 14px; border-left: 3px solid var(--yellow); margin: 8px 0; color: var(--green);">
+    <i>pirate:</i> "arr matey, in 5 leagues i shall set foot upon yer dock"
+  </p>
+  <p style="padding-left: 14px; border-left: 3px solid var(--yellow); margin: 8px 0; color: var(--green);">
+    <i>gen z:</i> "on my way rn 💀 5 min"
+  </p>
+  <p>
+    (it lives in ur menu bar the whole time, doesnt pop up, doesnt beep, doesnt
+    ask u anything. u just type and it works)
+  </p>
+  <p style="color: var(--gray); font-size: 13px;">
+    [edit: yes it can technically read everything u type. thats the whole point.
+    dont be paranoid. i made this. u can read every line of the code on github.
+    ok bye]
+  </p>
+</div>
+
+<!-- ─── styles ─── -->
+<div class="card redborder" id="styles">
+  <h2>13 styles <span class="small">(all free, all kinda dumb)</span></h2>
+  <div class="presets">
+    <div class="preset"><b>✍️ grammar</b><span>fixes ur spelling but doesnt make u sound like a robot</span></div>
+    <div class="preset"><b>✨ charisma</b><span>"ok" becomes "i have considered this and find it acceptable"</span></div>
+    <div class="preset"><b>😏 wit</b><span>makes u sound funnier than u r. lowkey dangerous</span></div>
+    <div class="preset"><b>🎭 shakespeare</b><span>thou, thee, thy, ye. doth. -eth. the whole vibe</span></div>
+    <div class="preset"><b>🏴‍☠️ pirate</b><span>arr matey. drops g's on -ing words</span></div>
+    <div class="preset"><b>💀 gen z</b><span>lowkey fr no cap. one skull. not too many i promise</span></div>
+    <div class="preset"><b>🎩 victorian</b><span>no contractions ever. formal letter energy</span></div>
+    <div class="preset"><b>🌃 cyberpunk</b><span>choom chrome eddies ICE. ur in night city now</span></div>
+    <div class="preset"><b>🤠 southern</b><span>fixin to, reckon, yall. grandma energy but in a good way</span></div>
+    <div class="preset"><b>📚 academic</b><span>scholarly journal voice. good 4 emails to professors</span></div>
+    <div class="preset"><b>💼 corporate</b><span>touch base re: bandwidth. align on the action item</span></div>
+    <div class="preset"><b>🟢 yoda</b><span>inverted grammar. mhm hmmm. natural-sounding it reads</span></div>
+    <div class="preset"><b>🕵️ noir</b><span>hardboiled 1940s detective. sharp similes. world-weary</span></div>
+    <div class="preset"><b>✏️ custom</b><span>make ur own. want to sound like a wikipedia article? go 4 it</span></div>
+  </div>
+</div>
+
+<!-- ─── web ring ─── -->
+<div class="webring">
+  🌀 <b>cool tools webring</b> 🌀<br>
+  <a href="#">← prev</a> ·
+  <a href="#">random</a> ·
+  <a href="#">next →</a><br>
+  <span style="color: var(--gray); font-size: 11px;">[webring not affiliated with this site, idk if it works anymore, its been here since 2003]</span>
+</div>
+
+<!-- ─── bring ur own ai ─── -->
+<div class="card">
+  <h2>bring ur own brain 🧠</h2>
+  <p>
+    so the app doesnt come with a brain. u gotta point it at one. it works with
+    anything that does the openai chat thing which is like. most of them
+  </p>
+  <p>
+    built in: <b>lm studio</b> (free, runs on ur computer), <b>openrouter</b>
+    (cheap, lots of models), <b>openai</b> (u know it), <b>opencode go</b>
+    (also cheap, lots of models), or <b>custom</b> url if u got one
+  </p>
+  <p>
+    if u wanna go full tin foil hat, point it at <code>http://localhost:1234/v1</code>
+    and ur good. no cloud. no logging. no anything
+  </p>
+</div>
+
+<!-- ─── install ─── -->
+<div class="card yellowborder" id="install">
+  <h2>how 2 install (its fast)</h2>
+  <ol class="howto">
+    <li>go to the <a href="https://github.com/4firas/Input-Stylizer-Mac/releases">releases page</a> and grab <code>SystemWideStylizer.app.zip</code></li>
+    <li>unzip it. drag the <code>.app</code> to applications like any other app</li>
+    <li>open it. mac will be like "this is from an unidentified developer" and u say yes. system settings > privacy > security > open anyway</li>
+    <li>go to <b>system settings > privacy & security > accessibility</b> and turn the app on. this is the weird part where mac gets weird about it</li>
+    <li>click the little dotted-line abc thing in ur menu bar. pick a style and a provider. paste ur api key if u need one</li>
+    <li>go type anywhere. hit enter. watch the magic happen (or the chaos depending on the style lol)</li>
+  </ol>
+  <p style="color: var(--gray); font-size: 13px; margin-top: 10px;">
+    [tip: if the menu bar icon looks grayed out, accessibility isnt on yet. go turn it on in
+    system settings. u only gotta do it once per mac, then it just works forever]
+  </p>
+</div>
+
+<!-- ─── faq ─── -->
+<div class="card" id="faq">
+  <h2>FAQ <span class="small">(questions ppl actually asked me)</span></h2>
+
+  <div class="faq-q">does it like, send everything i type to someone??</div>
+  <div class="faq-a">
+    only to the ai u picked in settings. thats it. nothing else. no analytics no
+    tracking no "phone home" stuff. the app is open source so u can literally
+    read every line and confirm. i pinky promise
   </div>
 
-  <!-- ─────────────── WHAT ─────────────── -->
-  <div class="window">
-    <div class="title-bar">
-      <span>ok_so_what_does_it_do.txt</span>
-      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-    </div>
-    <div class="window-content">
-      <h2>how it works</h2>
-      <p>
-        ok so ur typing something. anything. a discord msg, an email, a text, whatever.
-        u hit <code>return</code> like u always do. instead of just sending it tho, the
-        app grabs what u just typed, runs it thru some ai in the style u picked, and
-        pastes the new version back in. then it sends. u dont do anything different
-      </p>
-      <p>
-        like, the app lives in ur menu bar this whole time. it doesnt pop up. it doesnt
-        beep. it doesnt ask u anything. u just type like normal and it makes u sound
-        like u spent 10 more seconds on it
-      </p>
-      <p>
-        (also technically yes it can read everything u type, but like, thats the whole
-        point. dont be paranoid. i made this lol)
-      </p>
-    </div>
+  <div class="faq-q">does it work in [some app]</div>
+  <div class="faq-a">
+    if it has a text box u can type in then yeah probably. works in discord, slack,
+    imessage, notes, browsers, terminal, basically anything that isnt a password
+    field. password fields it leaves alone bc im not a monster
   </div>
 
-  <!-- ─────────────── STYLES ─────────────── -->
-  <div class="window">
-    <div class="title-bar">
-      <span>styles.html</span>
-      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-    </div>
-    <div class="window-content">
-      <h2>13 styles, all free, all kinda dumb</h2>
-      <div class="preset-grid">
-        <div class="preset"><div class="name">✍️ grammar</div><div class="desc">fixes ur spelling but doesnt make u sound like a robot. lowkey useful actually</div></div>
-        <div class="preset"><div class="name">✨ charisma</div><div class="desc">"ok" becomes "i have considered this and find it acceptable" kinda thing</div></div>
-        <div class="preset"><div class="name">😏 wit</div><div class="desc">makes u sound like ur funnier than u are. lowkey dangerous</div></div>
-        <div class="preset"><div class="name">🎭 shakespeare</div><div class="desc">thou, thee, thy, ye. doth. -eth. the whole vibe</div></div>
-        <div class="preset"><div class="name">🏴‍☠️ pirate</div><div class="desc">drops g's on -ing words. arr matey or whatever</div></div>
-        <div class="preset"><div class="name">💀 gen z</div><div class="desc">lowkey fr no cap. one skull emoji. not too many i promise</div></div>
-        <div class="preset"><div class="name">🎩 victorian</div><div class="desc">no contractions. ever. ur honor this is a formal letter</div></div>
-        <div class="preset"><div class="name">🌃 cyberpunk</div><div class="desc">choom, chrome, eddies, ICE. ur typing in night city now</div></div>
-        <div class="preset"><div class="name">🤠 southern</div><div class="desc">fixin to, reckon, yall. grandma energy but in a good way</div></div>
-        <div class="preset"><div class="name">📚 academic</div><div class="desc">scholarly journal article voice. good for emails to ur professor</div></div>
-        <div class="preset"><div class="name">💼 corporate</div><div class="desc">touch base re: bandwidth. align on the action item. ur in a meeting now</div></div>
-        <div class="preset"><div class="name">🟢 yoda</div><div class="desc">inverted grammar. mhm. hmmm. natural-sounding it reads</div></div>
-        <div class="preset"><div class="name">🕵️ noir</div><div class="desc">hardboiled 1940s detective. sharp similes. world-weary</div></div>
-        <div class="preset"><div class="name">✏️ custom</div><div class="desc">make ur own. want ur messages to sound like wikipedia? go for it</div></div>
-      </div>
-    </div>
+  <div class="faq-q">why is the menu bar icon gray</div>
+  <div class="faq-a">
+    u dont have accessibility turned on for it yet. system settings > privacy >
+    accessibility > toggle it on. the icon lights up blue when its good to go
   </div>
 
-  <!-- ─────────────── PROVIDERS ─────────────── -->
-  <div class="window">
-    <div class="title-bar">
-      <span>ais.txt</span>
-      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-    </div>
-    <div class="window-content">
-      <h2>bring ur own ai</h2>
-      <p>
-        so the app doesnt come with a brain. u gotta point it at one. it works with
-        anything that does the openai chat thing so like, probably most of them
-      </p>
-      <p>
-        built in: lm studio (free local), openrouter (cheap), openai (u know it),
-        <strong>opencode go</strong> (also cheap, lots of models), or just ur own
-        custom url if u got one
-      </p>
-      <p>
-        if u wanna go full tinfoil hat and run everything on ur own computer, point
-        it at <code>http://localhost:1234/v1</code> and ur good. no cloud, no
-        logging, no anything
-      </p>
-    </div>
+  <div class="faq-q">can i make my own style??</div>
+  <div class="faq-a">
+    yes!! pick "custom prompt" from the style menu and write whatever u want.
+    want ur messages to read like a guy named jeff? an instagram caption? a
+    wikipedia article? an apology letter? an email from a corporate ceo? go nuts
+    i wont judge
   </div>
 
-  <!-- ─────────────── INSTALL ─────────────── -->
-  <div class="window">
-    <div class="title-bar">
-      <span>how_to_install.txt</span>
-      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-    </div>
-    <div class="window-content">
-      <h2>install (its fast i promise)</h2>
-      <ol class="steps">
-        <li>go to the <a href="https://github.com/4firas/Input-Stylizer-Mac/releases">releases page</a> and grab <code>SystemWideStylizer.app.zip</code></li>
-        <li>unzip it, drag the <code>.app</code> into ur applications folder like any other app</li>
-        <li>open it. mac will be like "this is from an unidentified developer, are u sure" and u say yes. system settings > privacy > security > open anyway</li>
-        <li>go to <strong>system settings > privacy & security > accessibility</strong> and turn the app on. this is the part where mac gets weird about it</li>
-        <li>click the little dotted-line abc thing in ur menu bar. pick a style and a provider. paste ur api key if u need one</li>
-        <li>go type anywhere. hit enter. watch the magic happen (or the chaos, depending on the style)</li>
-      </ol>
-      <p style="margin-top: 14px; color: var(--gray); font-size: 16px;">
-        if the menu bar icon looks grayed out, the app doesnt have accessibility yet.
-        go turn it on in system settings. u only gotta do this once per mac
-      </p>
-    </div>
+  <div class="faq-q">will apple kill this in a future mac update</div>
+  <div class="faq-a">
+    idk maybe? the accessibility stuff has been stable since like 2014 tho. if
+    they break it ill find another way. probably. dont quote me on that lol
   </div>
 
-  <!-- ─────────────── FAQ ─────────────── -->
-  <div class="window">
-    <div class="title-bar">
-      <span>questions_people_asked.txt</span>
-      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-    </div>
-    <div class="window-content">
-      <h2>questions ppl asked me</h2>
-
-      <details>
-        <summary>does it like, send everything i type to someone</summary>
-        <p>only to the ai u picked in settings. thats it. nothing else has it. theres no analytics, no tracking, no "lets phone home" stuff. the app is open source so u can literally read every line and confirm</p>
-      </details>
-
-      <details>
-        <summary>does it work in [some app]</summary>
-        <p>if it has a text box u can type in then yeah probably. works in discord, slack, imessage, notes, browsers, terminal, basically anything that isnt a password field. password fields it leaves alone bc im not a monster</p>
-      </details>
-
-      <details>
-        <summary>why is the menu bar icon gray</summary>
-        <p>u dont have accessibility turned on for it yet. go to system settings > privacy > accessibility and toggle the app on. the icon lights up blue when its good to go</p>
-      </details>
-
-      <details>
-        <summary>can i make my own style</summary>
-        <p>yeah! pick "custom prompt" from the style menu and write whatever u want. want ur messages to read like a guy named jeff? an instagram caption? a wikipedia article? an apology letter? go nuts, no judgment here</p>
-      </details>
-
-      <details>
-        <summary>will apple kill this in a future mac update</summary>
-        <p>idk maybe? the accessibility stuff has been stable since like 2014 tho. if they break it ill find another way. probably. dont quote me on that</p>
-      </details>
-
-      <details>
-        <summary>why the dotted underline icon</summary>
-        <p>bc its an SF symbol called textformat.abc.dottedunderline and it is literally the perfect icon for this. idc if u think its weird. its staying</p>
-      </details>
-
-      <details>
-        <summary>why did u make this</summary>
-        <p>bc i was tired of typing "ok thanks" and wishing it said more. also i thought it would be funny. it is. try the pirate one on ur boss</p>
-      </details>
-    </div>
+  <div class="faq-q">why the dotted underline icon</div>
+  <div class="faq-a">
+    bc its an SF symbol called textformat.abc.dottedunderline and it is literally
+    the perfect icon for this. idc if u think its weird. its staying
   </div>
 
-  <!-- ─────────────── CTA ─────────────── -->
-  <div class="cta">
-    <div class="cta-inner">
-      <h2 style="color: var(--yellow); margin-bottom: 20px;">ok go get it</h2>
-      <p style="margin-bottom: 20px;">ur messages are 2 minutes away from being slightly better. maybe worse. depends on the style</p>
-      <a class="btn" href="https://github.com/4firas/Input-Stylizer-Mac/releases">⬇ download for mac</a>
-      <a class="btn alt" href="https://github.com/4firas/Input-Stylizer-Mac">⭐ star on github</a>
-    </div>
+  <div class="faq-q">why did u even make this</div>
+  <div class="faq-a">
+    bc i was tired of typing "ok thanks" and wishing it said more. also i
+    thought it would be funny. it is. try the pirate one on ur boss and report
+    back pls i need to know if it gets u fired
   </div>
+</div>
 
-  <footer>
-    <div>made by <a href="https://github.com/4firas">4firas</a>. its free. dont pay me for it. u can tho if u want idc</div>
-    <div style="margin-top: 8px;">
-      <div class="counter">visits: <span id="visits">0000042</span></div>
-    </div>
-    <div style="margin-top: 14px; font-size: 12px;">
-      best viewed in literally any browser. no cookies. no tracking. no nonsense
-    </div>
-  </footer>
+<!-- ─── poll ─── -->
+<div class="poll">
+  <h3 style="color: var(--yellow); font-size: 14px; margin-bottom: 4px;">📊 vote!! (results reset every monday)</h3>
+  <div style="font-size: 13px; color: var(--gray); margin-bottom: 6px;">whats ur fav style?</div>
+  <label><input type="radio" name="poll"> grammar</label>
+  <label><input type="radio" name="poll"> gen z 💀</label>
+  <label><input type="radio" name="poll"> pirate (arr)</label>
+  <label><input type="radio" name="poll"> yoda (hmmm)</label>
+  <label><input type="radio" name="poll"> shakespeare (doth)</label>
+  <label><input type="radio" name="poll"> noir detective</label>
+  <label><input type="radio" name="poll"> all of them i cant choose</label>
+  <button onclick="alert('thx 4 voting!! (this doesnt actually do anything lol)')">vote</button>
+</div>
 
-</main>
+<!-- ─── construction ─── -->
+<div class="construction">
+  🚧 SITE UNDER CONSTRUCTION 🚧 last updated 3 days ago 🚧 pls ignore the typos 🚧
+</div>
 
+<!-- ─── cta ─── -->
+<div class="card" style="text-align: center;">
+  <h2>ok go get it</h2>
+  <p>ur messages r 2 min away from being slightly better. maybe worse. depends on the style</p>
+  <p>
+    <a class="btn" href="https://github.com/4firas/Input-Stylizer-Mac/releases">⬇ download for mac</a>
+    <a class="btn alt" href="https://github.com/4firas/Input-Stylizer-Mac">⭐ star on github</a>
+  </p>
+  <p style="color: var(--gray); font-size: 12px; margin-top: 8px;">
+    (if u like it pls tell a friend, i spent way too long on this)
+  </p>
+</div>
+
+<!-- ─── extra widgets ─── -->
+<div class="widget">
+  <h3>📨 mailbag!!</h3>
+  <div style="font-size: 13px;">
+    wanna yell at me? feature request? found a bug? <br>
+    email: <a href="mailto:floppydiscx@gmail.com">floppydiscx@gmail.com</a>
+  </div>
+  <div class="small" style="margin-top: 4px;">
+    (yes i actually check this. no its not a bot. yes u can send gifs)
+  </div>
+</div>
+
+<div class="widget">
+  <h3>📜 guestbook (sign it!!)</h3>
+  <div style="font-size: 13px;">
+    this used to have a real guestbook but that broke in 2007 or smth so this is
+    just a placeholder. if u wanna say hi, email me instead lol
+  </div>
+</div>
+
+<!-- ─── footer ─── -->
+<footer>
+  © 2003–<span id="yr"></span> 4firas. all wrongs reserved.<br>
+  made w/ <span class="sparkle">✨</span> + <span class="sparkle">🧠</span> + way too much caffeine. hosted on github pages. no cookies. no tracking. no javascript ads. no nothing.<br>
+  <span class="blink">●</span> page loaded in <span id="loadtime">0.0</span>s (the cat is judging u)
+  <br><br>
+  <span style="color: var(--darkgray);">[best viewed at 1280x800 or higher. works in any browser. plz dont use IE, the cat is scared of IE]</span>
+</footer>
+
+</div>
+
+<!-- ─── floating msn-style chat (so 2003) ─── -->
+<div class="msn" id="msn">
+  <div class="head">
+    <span>💬 4firas@mac</span>
+    <span onclick="document.getElementById('msn').style.display='none'">_</span>
+  </div>
+  <div class="body">
+    <div class="msg">heyyy omg u found my site!! <3</div>
+    <div class="msg">did u download the app yet??</div>
+    <div class="msg">if u did lemme know what u think, i respond to every email (eventually)</div>
+    <div class="typing">4firas is typing...</div>
+    <input placeholder="say hi" disabled>
+  </div>
+</div>
+
+<!-- ─── the oneko cat (2000s energy) ─── -->
+<script src="oneko.js"></script>
+
+<!-- ─── the rest of the nonsense ─── -->
 <script>
-  // Floating stars
-  (function () {
-    const container = document.getElementById('stars');
-    for (let i = 0; i < 40; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.animationDelay = Math.random() * 3 + 's';
-      star.style.opacity = Math.random() * 0.6 + 0.2;
-      container.appendChild(star);
-    }
-  })();
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Fake visitor counter
+  // fake visitor counter (bumped per session)
   (function () {
     const key = 'sws_visits';
     let n = parseInt(sessionStorage.getItem(key) || '0', 10);
-    if (!sessionStorage.getItem(key)) {
-      n = 43;
-    } else {
-      n += 1;
-    }
+    n = n ? n + 1 : 43;
     sessionStorage.setItem(key, n);
     const el = document.getElementById('visits');
+    const vnum = document.getElementById('vnum');
     if (el) el.textContent = String(n).padStart(7, '0');
+    if (vnum) vnum.textContent = n;
   })();
+
+  // fake load time
+  const t0 = performance.now();
+  window.addEventListener('load', () => {
+    const ms = (performance.now() - t0).toFixed(2);
+    const el = document.getElementById('loadtime');
+    if (el) el.textContent = (ms / 1000).toFixed(2);
+  });
 </script>
 
 </body>
