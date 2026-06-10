@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SystemWideStylizer — press enter, but make it ✨</title>
-<meta name="description" content="A 4kb Swift app that hijacks your Return key so AI rewrites your messages before you send them. For macOS. Open source. Mildly unhinged.">
+<title>systemwidestylizer</title>
+<meta name="description" content="a thing i made for mac that makes ur messages sound better. free. open source. kinda dumb.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,7 @@
     font-size: 20px;
     min-height: 100vh;
     overflow-x: hidden;
-    /* animated tile background */
+    text-transform: lowercase;
     background-image:
       linear-gradient(rgba(255, 46, 136, 0.06) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
@@ -47,7 +47,6 @@
     to   { background-position: 32px 32px, 32px 32px; }
   }
 
-  /* scanline overlay */
   body::after {
     content: "";
     position: fixed;
@@ -135,6 +134,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-transform: uppercase;
   }
   .title-bar .dots { display: flex; gap: 4px; }
   .title-bar .dot { width: 12px; height: 12px; background: #000; border: 2px solid #000; }
@@ -155,6 +155,7 @@
     line-height: 1.4;
     margin-bottom: 16px;
     text-shadow: 4px 4px 0 var(--cyan), 8px 8px 0 var(--pink);
+    text-transform: uppercase;
   }
   .hero h1 .accent { color: var(--yellow); }
   .hero .tagline {
@@ -185,7 +186,7 @@
     border: 2px solid #000;
     font-family: 'Silkscreen', monospace;
     font-size: 11px;
-    text-transform: uppercase;
+    text-transform: lowercase;
     transform: rotate(-1deg);
     box-shadow: 3px 3px 0 #000;
     font-weight: 700;
@@ -201,6 +202,7 @@
     color: var(--yellow);
     margin-bottom: 16px;
     text-shadow: 2px 2px 0 var(--pink);
+    text-transform: uppercase;
   }
   h3 {
     font-family: 'Silkscreen', monospace;
@@ -338,6 +340,7 @@
     transition: transform 0.1s, box-shadow 0.1s;
     margin: 6px;
     font-weight: bold;
+    text-transform: uppercase;
   }
   .btn:hover {
     transform: translate(2px, 2px);
@@ -379,10 +382,8 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ───────────────── Cursor ───────────────── */
   a, .btn, summary, .preset, .badge { cursor: pointer; }
 
-  /* ───────────────── Mobile ───────────────── */
   @media (max-width: 600px) {
     .hero h1 { font-size: 18px; }
     .hero h1 { text-shadow: 3px 3px 0 var(--cyan), 6px 6px 0 var(--pink); }
@@ -393,13 +394,11 @@
 </head>
 <body>
 
-<!-- Floating background stars -->
 <div class="stars" id="stars"></div>
 
-<!-- Top marquee -->
 <div class="marquee">
   <span>
-    ★ now with 13 styles &nbsp;&nbsp; ★ works in any text field &nbsp;&nbsp; ★ open source &nbsp;&nbsp; ★ 4kb of terror &nbsp;&nbsp; ★ now with 13 styles &nbsp;&nbsp; ★ works in any text field &nbsp;&nbsp; ★ open source &nbsp;&nbsp; ★ 4kb of terror &nbsp;&nbsp; ★
+    ★ NEW!! 13 styles ★ works everywhere ★ free forever probably ★ 1.1mb ★ NEW!! 13 styles ★ works everywhere ★ free forever probably ★ 1.1mb ★ NEW!! 13 styles ★ works everywhere ★ free forever probably ★ 1.1mb ★
   </span>
 </div>
 
@@ -408,7 +407,7 @@
   <!-- ─────────────── HERO ─────────────── -->
   <div class="window">
     <div class="title-bar">
-      <span>SystemWideStylizer.exe</span>
+      <span>hi.txt</span>
       <div class="dots">
         <div class="dot"></div>
         <div class="dot"></div>
@@ -416,20 +415,20 @@
       </div>
     </div>
     <div class="hero">
-      <h1>SystemWide<br><span class="accent">Stylizer</span></h1>
-      <p class="tagline">press enter, but make it <span class="sparkle">✨</span></p>
+      <h1>systemwide<br><span class="accent">stylizer</span></h1>
+      <p class="tagline">press enter but make it <span class="sparkle">✨</span> different</p>
       <p class="blurb">
-        A tiny macOS app that intercepts your <code>Return</code> key and rewrites whatever you just typed
-        in a style of your choosing — Yoda, pirate, Victorian, gen-z, whatever.
-        Then it sends it.
+        ok so basically this is a tiny thing i made for mac that watches for when u hit enter
+        and right before it sends ur message it like, runs it thru an ai and makes it sound
+        better. or weirder. depends on what u pick
       </p>
       <div class="badges">
-        <div class="badge">🚢 ship to messages</div>
+        <div class="badge">🚢 ships to ur messages</div>
         <div class="badge">🔒 100% local</div>
-        <div class="badge">🦄 vibes</div>
-        <div class="badge">⌘⇧ works in any text field</div>
-        <div class="badge">👴 your typing gets dignified</div>
-        <div class="badge">🐙 open source</div>
+        <div class="badge">🦄 has vibes</div>
+        <div class="badge">⌘ works in any text box</div>
+        <div class="badge">👴 makes u sound like u slept</div>
+        <div class="badge">🐙 free to read all the code</div>
       </div>
     </div>
   </div>
@@ -437,23 +436,25 @@
   <!-- ─────────────── WHAT ─────────────── -->
   <div class="window">
     <div class="title-bar">
-      <span>what_does_it_do.txt</span>
+      <span>ok_so_what_does_it_do.txt</span>
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="window-content">
       <h2>how it works</h2>
       <p>
-        you type something. you hit <code>Return</code>. instead of sending immediately,
-        your text goes to an AI model, gets rewritten in the style you picked, and
-        then <em>that's</em> what gets sent.
+        ok so ur typing something. anything. a discord msg, an email, a text, whatever.
+        u hit <code>return</code> like u always do. instead of just sending it tho, the
+        app grabs what u just typed, runs it thru some ai in the style u picked, and
+        pastes the new version back in. then it sends. u dont do anything different
       </p>
       <p>
-        you don't press anything extra. you don't paste anything. you don't open
-        a separate app. the app lives in your menu bar, takes 0% of your attention,
-        and turns every message into a slightly better version of itself.
+        like, the app lives in ur menu bar this whole time. it doesnt pop up. it doesnt
+        beep. it doesnt ask u anything. u just type like normal and it makes u sound
+        like u spent 10 more seconds on it
       </p>
-      <p style="color: var(--gray); font-size: 16px;">
-        (so: it's not a keylogger. it just does keylogger things, but with taste.)
+      <p>
+        (also technically yes it can read everything u type, but like, thats the whole
+        point. dont be paranoid. i made this lol)
       </p>
     </div>
   </div>
@@ -461,26 +462,26 @@
   <!-- ─────────────── STYLES ─────────────── -->
   <div class="window">
     <div class="title-bar">
-      <span>styles.cat</span>
+      <span>styles.html</span>
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="window-content">
-      <h2>13+ styles, all free, all unhinged</h2>
+      <h2>13 styles, all free, all kinda dumb</h2>
       <div class="preset-grid">
-        <div class="preset"><div class="name">✍️ Grammar</div><div class="desc">fixes your spelling without changing your tone. gentle.</div></div>
-        <div class="preset"><div class="name">✨ Charisma</div><div class="desc">"ok" → "i have considered your proposal and find it... ok"</div></div>
-        <div class="preset"><div class="name">😏 Wit</div><div class="desc">dry, understated humor. you sound like you're doing this on purpose.</div></div>
-        <div class="preset"><div class="name">🎭 Shakespeare</div><div class="desc">thou, thee, thy, ye. doth. -eth. -est. the whole deal.</div></div>
-        <div class="preset"><div class="name">🏴‍☠️ Pirate</div><div class="desc">authentic 18th-century maritime phrasing. drops g's on -ing verbs.</div></div>
-        <div class="preset"><div class="name">💀 Gen Z</div><div class="desc">lowkey fr no cap 💀. lowercase. the right number of emojis.</div></div>
-        <div class="preset"><div class="name">🎩 Victorian</div><div class="desc">formal, polite, structured. no contractions. ever.</div></div>
-        <div class="preset"><div class="name">🌃 Cyberpunk</div><div class="desc">choom, chrome, eddies, ICE. world-weary and concise.</div></div>
-        <div class="preset"><div class="name">🤠 Southern</div><div class="desc">fixin' to, reckon, y'all. warm and hospitable.</div></div>
-        <div class="preset"><div class="name">📚 Academic</div><div class="desc">scholarly journal article energy. advanced vocab. zero filler.</div></div>
-        <div class="preset"><div class="name">💼 Corporate</div><div class="desc">align on the action item. touch base re: bandwidth. realistic, not a parody.</div></div>
-        <div class="preset"><div class="name">🟢 Yoda</div><div class="desc">inverted grammar. mmm. hmmm. natural-sounding it reads, for it does.</div></div>
-        <div class="preset"><div class="name">🕵️ Noir Detective</div><div class="desc">hardboiled 1940s monologue. sharp similes. world-weary.</div></div>
-        <div class="preset"><div class="name">✏️ Custom</div><div class="desc">write your own system prompt. go nuts.</div></div>
+        <div class="preset"><div class="name">✍️ grammar</div><div class="desc">fixes ur spelling but doesnt make u sound like a robot. lowkey useful actually</div></div>
+        <div class="preset"><div class="name">✨ charisma</div><div class="desc">"ok" becomes "i have considered this and find it acceptable" kinda thing</div></div>
+        <div class="preset"><div class="name">😏 wit</div><div class="desc">makes u sound like ur funnier than u are. lowkey dangerous</div></div>
+        <div class="preset"><div class="name">🎭 shakespeare</div><div class="desc">thou, thee, thy, ye. doth. -eth. the whole vibe</div></div>
+        <div class="preset"><div class="name">🏴‍☠️ pirate</div><div class="desc">drops g's on -ing words. arr matey or whatever</div></div>
+        <div class="preset"><div class="name">💀 gen z</div><div class="desc">lowkey fr no cap. one skull emoji. not too many i promise</div></div>
+        <div class="preset"><div class="name">🎩 victorian</div><div class="desc">no contractions. ever. ur honor this is a formal letter</div></div>
+        <div class="preset"><div class="name">🌃 cyberpunk</div><div class="desc">choom, chrome, eddies, ICE. ur typing in night city now</div></div>
+        <div class="preset"><div class="name">🤠 southern</div><div class="desc">fixin to, reckon, yall. grandma energy but in a good way</div></div>
+        <div class="preset"><div class="name">📚 academic</div><div class="desc">scholarly journal article voice. good for emails to ur professor</div></div>
+        <div class="preset"><div class="name">💼 corporate</div><div class="desc">touch base re: bandwidth. align on the action item. ur in a meeting now</div></div>
+        <div class="preset"><div class="name">🟢 yoda</div><div class="desc">inverted grammar. mhm. hmmm. natural-sounding it reads</div></div>
+        <div class="preset"><div class="name">🕵️ noir</div><div class="desc">hardboiled 1940s detective. sharp similes. world-weary</div></div>
+        <div class="preset"><div class="name">✏️ custom</div><div class="desc">make ur own. want ur messages to sound like wikipedia? go for it</div></div>
       </div>
     </div>
   </div>
@@ -488,21 +489,24 @@
   <!-- ─────────────── PROVIDERS ─────────────── -->
   <div class="window">
     <div class="title-bar">
-      <span>providers.list</span>
+      <span>ais.txt</span>
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="window-content">
-      <h2>bring your own AI</h2>
+      <h2>bring ur own ai</h2>
       <p>
-        works with any OpenAI-compatible API. pick a provider in settings, drop in your
-        key (or skip the key if you're going local), pick a model, you're done.
+        so the app doesnt come with a brain. u gotta point it at one. it works with
+        anything that does the openai chat thing so like, probably most of them
       </p>
       <p>
-        <strong>built-in:</strong> LM Studio, OpenRouter, OpenAI, <strong>OpenCode Go</strong>, Custom endpoint.
+        built in: lm studio (free local), openrouter (cheap), openai (u know it),
+        <strong>opencode go</strong> (also cheap, lots of models), or just ur own
+        custom url if u got one
       </p>
       <p>
-        <strong>local-first?</strong> point it at <code>http://localhost:1234/v1</code>
-        (LM Studio default) and stylize on the metal, no cloud.
+        if u wanna go full tinfoil hat and run everything on ur own computer, point
+        it at <code>http://localhost:1234/v1</code> and ur good. no cloud, no
+        logging, no anything
       </p>
     </div>
   </div>
@@ -510,22 +514,22 @@
   <!-- ─────────────── INSTALL ─────────────── -->
   <div class="window">
     <div class="title-bar">
-      <span>install_instructions.sh</span>
+      <span>how_to_install.txt</span>
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="window-content">
-      <h2>install in 90 seconds</h2>
+      <h2>install (its fast i promise)</h2>
       <ol class="steps">
-        <li>go to the <a href="https://github.com/4firas/Input-Stylizer-Mac/releases">releases page</a> and download <code>SystemWideStylizer.app.zip</code></li>
-        <li>unzip it and move the <code>.app</code> to your <strong>Applications</strong> folder</li>
-        <li>open it. macOS will warn you it's from an unidentified developer. click <strong>Open Anyway</strong> in System Settings → Privacy & Security</li>
-        <li>go to <strong>System Settings → Privacy & Security → Accessibility</strong> and toggle on SystemWideStylizer</li>
-        <li>click the menu bar icon (the dotted-underline "abc" thing), pick a <strong>style</strong> and a <strong>provider</strong></li>
-        <li>type anywhere. press <code>Return</code>. witness transformation.</li>
+        <li>go to the <a href="https://github.com/4firas/Input-Stylizer-Mac/releases">releases page</a> and grab <code>SystemWideStylizer.app.zip</code></li>
+        <li>unzip it, drag the <code>.app</code> into ur applications folder like any other app</li>
+        <li>open it. mac will be like "this is from an unidentified developer, are u sure" and u say yes. system settings > privacy > security > open anyway</li>
+        <li>go to <strong>system settings > privacy & security > accessibility</strong> and turn the app on. this is the part where mac gets weird about it</li>
+        <li>click the little dotted-line abc thing in ur menu bar. pick a style and a provider. paste ur api key if u need one</li>
+        <li>go type anywhere. hit enter. watch the magic happen (or the chaos, depending on the style)</li>
       </ol>
       <p style="margin-top: 14px; color: var(--gray); font-size: 16px;">
-        tip: if the menu bar icon shows up grayed out, accessibility isn't on yet.
-        toggle the app off and back on once — that fixes it permanently.
+        if the menu bar icon looks grayed out, the app doesnt have accessibility yet.
+        go turn it on in system settings. u only gotta do this once per mac
       </p>
     </div>
   </div>
@@ -533,40 +537,45 @@
   <!-- ─────────────── FAQ ─────────────── -->
   <div class="window">
     <div class="title-bar">
-      <span>faq.hmmm</span>
+      <span>questions_people_asked.txt</span>
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="window-content">
-      <h2>FAQ</h2>
+      <h2>questions ppl asked me</h2>
 
       <details>
-        <summary>does it send my text somewhere?</summary>
-        <p>only to the AI provider you picked in settings. nothing leaves your machine otherwise. no telemetry, no analytics, no "phone home" stuff. the entire app is ~1.1mb and you can read every line of it.</p>
+        <summary>does it like, send everything i type to someone</summary>
+        <p>only to the ai u picked in settings. thats it. nothing else has it. theres no analytics, no tracking, no "lets phone home" stuff. the app is open source so u can literally read every line and confirm</p>
       </details>
 
       <details>
-        <summary>does it work in [insert app here]?</summary>
-        <p>if [insert app here] has a text field that accepts regular keyboard input, yes. works in Discord, Slack, Messages, Notes, browsers, terminal — basically everywhere except password fields (which it should refuse to touch, and does).</p>
+        <summary>does it work in [some app]</summary>
+        <p>if it has a text box u can type in then yeah probably. works in discord, slack, imessage, notes, browsers, terminal, basically anything that isnt a password field. password fields it leaves alone bc im not a monster</p>
       </details>
 
       <details>
-        <summary>why does the menu bar icon look sad?</summary>
-        <p>you don't have Accessibility permission yet. grant it in System Settings → Privacy & Security → Accessibility, then toggle the app on. the icon will light up.</p>
+        <summary>why is the menu bar icon gray</summary>
+        <p>u dont have accessibility turned on for it yet. go to system settings > privacy > accessibility and toggle the app on. the icon lights up blue when its good to go</p>
       </details>
 
       <details>
-        <summary>can i add my own style?</summary>
-        <p>yes — pick <strong>Custom Prompt</strong> from the style menu, then write whatever you want. want your messages to read like a wikipedia article? an instagram caption? a guy named jeff? go for it.</p>
+        <summary>can i make my own style</summary>
+        <p>yeah! pick "custom prompt" from the style menu and write whatever u want. want ur messages to read like a guy named jeff? an instagram caption? a wikipedia article? an apology letter? go nuts, no judgment here</p>
       </details>
 
       <details>
-        <summary>will apple kill this in a future macOS update?</summary>
-        <p>maybe. accessibility APIs are private-feeling but the ones we use have been stable since 10.10. if apple ever breaks them, we'll find another way. probably.</p>
+        <summary>will apple kill this in a future mac update</summary>
+        <p>idk maybe? the accessibility stuff has been stable since like 2014 tho. if they break it ill find another way. probably. dont quote me on that</p>
       </details>
 
       <details>
-        <summary>why does the icon have a dotted underline?</summary>
-        <p>it's an SF Symbol called <code>textformat.abc.dottedunderline</code> and it's the perfect icon for this. fight us.</p>
+        <summary>why the dotted underline icon</summary>
+        <p>bc its an SF symbol called textformat.abc.dottedunderline and it is literally the perfect icon for this. idc if u think its weird. its staying</p>
+      </details>
+
+      <details>
+        <summary>why did u make this</summary>
+        <p>bc i was tired of typing "ok thanks" and wishing it said more. also i thought it would be funny. it is. try the pirate one on ur boss</p>
       </details>
     </div>
   </div>
@@ -574,20 +583,20 @@
   <!-- ─────────────── CTA ─────────────── -->
   <div class="cta">
     <div class="cta-inner">
-      <h2 style="color: var(--yellow); margin-bottom: 20px;">go on. ship it.</h2>
-      <p style="margin-bottom: 20px;">your messages are 30 seconds away from being 30% better.</p>
-      <a class="btn" href="https://github.com/4firas/Input-Stylizer-Mac/releases">⬇ download for macOS</a>
+      <h2 style="color: var(--yellow); margin-bottom: 20px;">ok go get it</h2>
+      <p style="margin-bottom: 20px;">ur messages are 2 minutes away from being slightly better. maybe worse. depends on the style</p>
+      <a class="btn" href="https://github.com/4firas/Input-Stylizer-Mac/releases">⬇ download for mac</a>
       <a class="btn alt" href="https://github.com/4firas/Input-Stylizer-Mac">⭐ star on github</a>
     </div>
   </div>
 
   <footer>
-    <div>made by <a href="https://github.com/4firas">4firas</a> · swift 6.4 · macOS 14+ · 1.1mb</div>
+    <div>made by <a href="https://github.com/4firas">4firas</a>. its free. dont pay me for it. u can tho if u want idc</div>
     <div style="margin-top: 8px;">
-      <div class="counter">visitors: <span id="visits">0000042</span></div>
+      <div class="counter">visits: <span id="visits">0000042</span></div>
     </div>
     <div style="margin-top: 14px; font-size: 12px;">
-      best viewed in any browser that exists · no cookies · no trackers · no nonsense
+      best viewed in literally any browser. no cookies. no tracking. no nonsense
     </div>
   </footer>
 
@@ -608,7 +617,7 @@
     }
   })();
 
-  // Fake visitor counter (bumped once per session)
+  // Fake visitor counter
   (function () {
     const key = 'sws_visits';
     let n = parseInt(sessionStorage.getItem(key) || '0', 10);
