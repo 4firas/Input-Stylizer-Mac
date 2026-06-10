@@ -574,11 +574,20 @@
   </div>
 </div>
 
-<div class="widget">
+<div class="widget" id="guestbook">
   <h3>📜 guestbook (sign it!!)</h3>
   <div style="font-size: 13px;">
-    this used to have a real guestbook but that broke in 2007 or smth so this is
-    just a placeholder. if u wanna say hi, email me instead lol
+    sign the guestbook!! leave ur name, say hi, yell at me, whatever.<br>
+    (u gotta have a <a href="https://github.com/join">github</a> account to post. if u dont, just
+    <a href="mailto:floppydiscx@gmail.com">email me</a> and i'll add it manually lol)
+  </div>
+  <div id="utterances-placeholder" style="margin-top: 8px; min-height: 100px;">
+    <div id="utterances-section"></div>
+    <p style="font-size: 12px; color: var(--gray); margin-top: 6px;">
+      [if u see nothing below, install the
+      <a href="https://github.com/apps/utterances">utterances app</a>
+      on the repo and it works instantly]
+    </p>
   </div>
 </div>
 
@@ -610,6 +619,25 @@
 
 <!-- ─── the oneko cat (2000s energy) ─── -->
 <script src="oneko.js"></script>
+
+<!-- ─── guestbook (utterances = github issues) ─── -->
+<script>
+(function() {
+  const section = document.getElementById('utterances-section');
+  if (!section) return;
+
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', '4firas/Input-Stylizer-Mac');
+  script.setAttribute('issue-number', '1');
+  script.setAttribute('theme', 'icy-dark');
+  script.setAttribute('label', 'guestbook');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  section.appendChild(script);
+})();
+</script>
+<noscript>javascript is required to sign the guestbook sry. or just email me</noscript>
 
 <!-- ─── the rest of the nonsense ─── -->
 <script>
