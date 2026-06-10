@@ -1,0 +1,46 @@
+/* ─── kurokula utterances theme ─── */
+/* matches the pi theme: dark charcoal bg, warm beige fg, deep red accent */
+
+:root {
+  --bg: #131515;
+  --bg-secondary: #181a1a;
+  --bg-tertiary: #1b1d1d;
+  --fg: #dfcfc2;
+  --fg-secondary: #505151;
+  --fg-tertiary: #222424;
+  --accent: #791c1c;
+  --accent-dark: #600303;
+  --link: #ac756f;
+  --border: #222424;
+  --border-light: #505151;
+  --success: #aeffa4;
+  --warning: #fff600;
+  --error: #c35951;
+  --white: #feffff;
+  --button-bg: #791c1c;
+  --button-fg: #feffff;
+  --button-hover-bg: #600303;
+  --input-bg: #181a1a;
+  --input-border: #505151;
+  --input-focus-border: #791c1c;
+  --blockquote-bg: #1d1f1f;
+  --blockquote-border: #791c1c;
+  --code-bg: #222424;
+  --code-fg: #aeffa4;
+  --header-border: #222424;
+  --highlight: #1d1f1f;
+  --selection-bg: #1d1f1f;
+  --reaction-bg: #1b1d1d;
+  --reaction-hover-bg: #222424;
+  --reaction-active-bg: #1d1f1f;
+  --reaction-border: #222424;
+  --reaction-active-border: #791c1c;
+  --avatar-bg: #222424;
+  --tooltip-bg: #181a1a;
+  --tooltip-border: #505151;
+  --popover-bg: #181a1a;
+  --popover-border: #505151;
+  --scrollbar-bg: #131515;
+  --scrollbar-thumb: #505151;
+  --scrollbar-thumb-hover: #791c1c;
+}
