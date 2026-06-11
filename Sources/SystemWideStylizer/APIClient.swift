@@ -139,7 +139,11 @@ struct APIClient {
             // Remove the opening fence (first line)
             if let firstNewline = text.firstIndex(of: "\n") {
                 text = String(text[text.index(after: firstNewline)...])
+            } else {
+                text = String(text.dropFirst(3))
             }
+            text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+
             // Remove the closing fence
             if text.hasSuffix("```") {
                 text = String(text.dropLast(3))
@@ -171,36 +175,6 @@ struct APIClient {
             text = text.trimmingCharacters(in: .whitespacesAndNewlines)
         }
 
-        // Replace em-dashes with comma-space
-        text = text.replacingOccurrences(of: "—", with: ", ")
-        text = text.replacingOccurrences(of: " -- ", with: ", ")
-
-        // Remove all emojis for clean, professional look
-        text = removeEmojis(text)
-
-        // Force lowercase (no capital first letter or sentences)
-        text = text.lowercased()
-
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-
-    /// Strips emoji/pictograph ranges to guarantee no emojis in output.
-    private static func removeEmojis(_ text: String) -> String {
-        var clean = ""
-        for scalar in text.unicodeScalars {
-            let val = scalar.value
-            let isEmoji = (val >= 0x1F600 && val <= 0x1F64F) || // Emoticons
-                          (val >= 0x1F300 && val <= 0x1F5FF) || // Misc Symbols & Pictographs
-                          (val >= 0x1F680 && val <= 0x1F6FF) || // Transport & Map Symbols
-                          (val >= 0x1F900 && val <= 0x1FAFF) || // Supplemental Symbols & Pictographs
-                          (val >= 0x2700 && val <= 0x27BF)   || // Dingbats
-                          (val >= 0x1F1E6 && val <= 0x1F1FF) || // Regional Indicator Flags
-                          (val >= 0x1F000 && val <= 0x1F02F) || // Mahjong
-                          (val >= 0x1F0A0 && val <= 0x1F0FF)    // Playing Cards
-            if !isEmoji {
-                clean.append(Character(scalar))
-            }
-        }
-        return clean
     }
 }
