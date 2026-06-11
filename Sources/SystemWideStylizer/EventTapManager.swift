@@ -48,6 +48,7 @@ final class EventTapManager {
     /// When `true`, an async styling operation is in flight. We pass through any
     /// additional Return presses while processing to avoid queuing up duplicates.
     private var isProcessing = false
+    private var isRunning = false
 
     /// Shared settings reference.
     private let settings: AppSettings
@@ -73,6 +74,7 @@ final class EventTapManager {
     ///   Accessibility permissions are missing (the most common failure cause).
     @discardableResult
     func start() -> Bool {
+        guard !isRunning else { return true }
         // Always stop first to allow clean re-creation (e.g. after permission change)
         stop()
 
@@ -103,6 +105,7 @@ final class EventTapManager {
         CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: tap, enable: true)
 
+        isRunning = true
         print("[EventTapManager] Event tap installed and enabled.")
         return true
     }
@@ -115,8 +118,10 @@ final class EventTapManager {
         }
         if let tap = eventTap {
             CGEvent.tapEnable(tap: tap, enable: false)
+            CFMachPortInvalidate(tap)
             eventTap = nil
         }
+        isRunning = false
         print("[EventTapManager] Event tap stopped.")
     }
 
@@ -124,6 +129,7 @@ final class EventTapManager {
     @discardableResult
     func restart() -> Bool {
         print("[EventTapManager] Restarting event tap...")
+        isRunning = false
         return start()
     }
 
@@ -166,15 +172,33 @@ final class EventTapManager {
             return Unmanaged.passUnretained(event)
         }
 
+        // Check if any modifiers (Shift, Command, Option, Control) are pressed.
+        // If so, the user is likely trying to insert a newline or use a shortcut.
+        // We shouldn't intercept this.
+        let flags = event.flags
+        let hasModifiers = flags.contains(.maskShift) ||
+                           flags.contains(.maskCommand) ||
+                           flags.contains(.maskAlternate) ||
+                           flags.contains(.maskControl)
+
+        if hasModifiers {
+            return Unmanaged.passUnretained(event)
+        }
+
         // Retrieve the manager instance from refcon.
         guard let refcon = refcon else {
             return Unmanaged.passUnretained(event)
         }
         let manager = Unmanaged<EventTapManager>.fromOpaque(refcon).takeUnretainedValue()
 
-        // If styling is disabled globally, or we're already processing, let it through.
-        guard manager.settings.isEnabled, !manager.isProcessing else {
+        if !manager.settings.isEnabled {
             return Unmanaged.passUnretained(event)
+        }
+
+        // If styling is already processing, swallow duplicate returns to prevent
+        // sending raw text while waiting for the AI response.
+        if manager.isProcessing {
+            return nil
         }
 
         // ─── Swallow the event and begin async styling ───

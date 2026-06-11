@@ -226,33 +226,68 @@ final class AppSettings: ObservableObject {
 
     // MARK: Global Toggle
 
-    /// Master kill-switch. When `false`, the event tap passes all Return keys through.
-    @AppStorage("isEnabled") var isEnabled: Bool = false
+    @Published var isEnabled: Bool {
+        didSet { UserDefaults.standard.set(isEnabled, forKey: "isEnabled") }
+    }
 
     // MARK: Style Selection
 
-    /// The currently selected style preset. Determines which system prompt is sent to the API.
-    @AppStorage("selectedStyle") var selectedStyle: StylePreset = .grammar
+    @Published var selectedStyle: StylePreset {
+        didSet { UserDefaults.standard.set(selectedStyle.rawValue, forKey: "selectedStyle") }
+    }
 
     // MARK: Provider Configuration
 
-    @AppStorage("currentProvider") var currentProvider: Provider = .lmStudio
+    @Published var currentProvider: Provider {
+        didSet { UserDefaults.standard.set(currentProvider.rawValue, forKey: "currentProvider") }
+    }
 
-    @AppStorage("apiKey") var apiKey: String = ""
+    @Published var apiKey: String {
+        didSet { UserDefaults.standard.set(apiKey, forKey: "apiKey") }
+    }
 
-    @AppStorage("targetModel") var targetModel: String = ""
+    @Published var targetModel: String {
+        didSet { UserDefaults.standard.set(targetModel, forKey: "targetModel") }
+    }
 
-    @AppStorage("customEndpointURL") var customEndpointURL: String = ""
+    @Published var customEndpointURL: String {
+        didSet { UserDefaults.standard.set(customEndpointURL, forKey: "customEndpointURL") }
+    }
 
     // MARK: Custom System Prompt
 
-    /// User-defined system prompt, used only when `selectedStyle == .custom`.
-    @AppStorage("customSystemPrompt") var customSystemPrompt: String = """
+    @Published var customSystemPrompt: String {
+        didSet { UserDefaults.standard.set(customSystemPrompt, forKey: "customSystemPrompt") }
+    }
+
+    private init() {
+        self.isEnabled = UserDefaults.standard.bool(forKey: "isEnabled")
+
+        if let styleRaw = UserDefaults.standard.string(forKey: "selectedStyle"),
+           let style = StylePreset(rawValue: styleRaw) {
+            self.selectedStyle = style
+        } else {
+            self.selectedStyle = .grammar
+        }
+
+        if let providerRaw = UserDefaults.standard.string(forKey: "currentProvider"),
+           let provider = Provider(rawValue: providerRaw) {
+            self.currentProvider = provider
+        } else {
+            self.currentProvider = .lmStudio
+        }
+
+        self.apiKey = UserDefaults.standard.string(forKey: "apiKey") ?? ""
+        self.targetModel = UserDefaults.standard.string(forKey: "targetModel") ?? ""
+        self.customEndpointURL = UserDefaults.standard.string(forKey: "customEndpointURL") ?? ""
+
+        self.customSystemPrompt = UserDefaults.standard.string(forKey: "customSystemPrompt") ?? """
         You are a text translator. Rewrite the user's message in your own unique style. \
         Output ONLY the translated text. Do not include any explanations, markdown formatting, \
         code blocks, quotation marks, or conversational filler. \
         Return nothing but the rewritten message.
         """
+    }
 
     // MARK: Computed Helpers
 

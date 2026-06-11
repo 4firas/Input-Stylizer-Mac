@@ -1,5 +1,6 @@
 import Cocoa
 import SwiftUI
+import Combine
 
 // MARK: - App Delegate
 
@@ -29,6 +30,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
 
     /// Permission polling timer — kept as property so we can restart it.
     private weak var permissionTimer: Timer?
+    private var settingsCancellable: AnyCancellable?
 
     // MARK: - App Lifecycle
 
@@ -55,32 +57,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
 
         guard let button = statusItem?.button else { return }
 
-        // Use an SF Symbol that conveys "text transformation"
         button.image = NSImage(systemSymbolName: "textformat.abc.dottedunderline", accessibilityDescription: "SystemWideStylizer")
         button.action = #selector(togglePopover(_:))
         button.target = self
 
-        updateStatusItemIcon()
+        updateStatusItemIcon(isEnabled: settings.isEnabled)
 
-        // Observe changes to isEnabled to update the icon dynamically
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(settingsDidChange),
-            name: UserDefaults.didChangeNotification,
-            object: nil
-        )
+        settingsCancellable = settings.$isEnabled
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEnabled in
+                self?.updateStatusItemIcon(isEnabled: isEnabled)
+            }
     }
 
-    @objc private func settingsDidChange() {
-        DispatchQueue.main.async { [weak self] in
-            self?.updateStatusItemIcon()
-        }
-    }
-
-    private func updateStatusItemIcon() {
+    private func updateStatusItemIcon(isEnabled: Bool? = nil) {
         guard let button = statusItem?.button else { return }
+        let enabled = isEnabled ?? settings.isEnabled
 
-        if settings.isEnabled && AccessibilityHelper.isTrusted() {
+        if enabled && AccessibilityHelper.isTrusted() {
             button.contentTintColor = NSColor.controlAccentColor
         } else {
             button.contentTintColor = nil
@@ -171,34 +165,35 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         tryStartOrPollPermission()
     }
 
+    private var wasTrusted = false
+
     private func tryStartOrPollPermission() {
-        // Invalidate any existing timer
         permissionTimer?.invalidate()
 
-        if AccessibilityHelper.isTrusted() {
+        wasTrusted = AccessibilityHelper.isTrusted()
+        if wasTrusted {
             let started = eventTapManager?.start() ?? false
             if started {
-                updateStatusItemIcon()
+                updateStatusItemIcon(isEnabled: settings.isEnabled)
                 print("[AppDelegate] Event tap started.")
             }
-            // Even if start succeeded, keep polling to detect
-            // future permission revoke → re-grant cycles.
         }
 
-        // Poll every 2s regardless, so we catch permission changes
         permissionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
 
-            if AccessibilityHelper.isTrusted() {
-                // Tap might fail if permission changed; restart ensures fresh tap
-                let started = self.eventTapManager?.restart() ?? false
-                if started {
-                    self.updateStatusItemIcon()
+            let isTrusted = AccessibilityHelper.isTrusted()
+            if isTrusted != self.wasTrusted {
+                self.wasTrusted = isTrusted
+                if isTrusted {
+                    let started = self.eventTapManager?.start() ?? false
+                    if started {
+                        self.updateStatusItemIcon(isEnabled: self.settings.isEnabled)
+                    }
+                } else {
+                    self.eventTapManager?.stop()
+                    self.updateStatusItemIcon(isEnabled: self.settings.isEnabled)
                 }
-            } else {
-                // Permission was revoked — stop the tap and grey out icon
-                self.eventTapManager?.stop()
-                self.updateStatusItemIcon()
             }
         }
     }
