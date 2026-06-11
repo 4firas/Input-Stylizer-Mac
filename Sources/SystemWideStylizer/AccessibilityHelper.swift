@@ -59,8 +59,10 @@ enum AccessibilityHelper {
             return nil
         }
 
-        // The CFTypeRef is an AXUIElement under the hood; force-cast is safe here
-        // because kAXFocusedUIElementAttribute always returns an AXUIElement on success.
+        // Safely check the type ID to prevent crashes from misbehaving apps
+        guard CFGetTypeID(element) == AXUIElementGetTypeID() else {
+            return nil
+        }
         let axElement = element as! AXUIElement
 
         // Step 2: Read the text value

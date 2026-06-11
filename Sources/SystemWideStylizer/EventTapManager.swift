@@ -49,6 +49,9 @@ final class EventTapManager {
     /// additional Return presses while processing to avoid queuing up duplicates.
     private var isProcessing = false
 
+    /// Tracks if we swallowed a keyDown so we can swallow the matching keyUp.
+    private var swallowedReturnKeyDown = false
+
     /// Shared settings reference.
     private let settings: AppSettings
 
@@ -144,11 +147,11 @@ final class EventTapManager {
                     CGEvent.tapEnable(tap: tap, enable: true)
                 }
             }
-            return Unmanaged.passUnretained(event)
+            return nil
         }
 
-        // Only process keyDown events.
-        guard type == .keyDown else {
+        // Only process keyDown and keyUp events.
+        guard type == .keyDown || type == .keyUp else {
             return Unmanaged.passUnretained(event)
         }
 
@@ -172,12 +175,33 @@ final class EventTapManager {
         }
         let manager = Unmanaged<EventTapManager>.fromOpaque(refcon).takeUnretainedValue()
 
-        // If styling is disabled globally, or we're already processing, let it through.
-        guard manager.settings.isEnabled, !manager.isProcessing else {
+        if type == .keyUp {
+            if manager.swallowedReturnKeyDown {
+                manager.swallowedReturnKeyDown = false
+                return nil
+            }
+            return Unmanaged.passUnretained(event)
+        }
+
+        // Ignore if any modifiers are pressed (e.g., Shift+Return, Cmd+Return)
+        let flags = event.flags
+        let modifiers = flags.intersection([.maskShift, .maskCommand, .maskControl, .maskAlternate])
+        if !modifiers.isEmpty {
+            return Unmanaged.passUnretained(event)
+        }
+
+        // If styling is disabled globally, let it through.
+        guard manager.settings.isEnabled else {
+            return Unmanaged.passUnretained(event)
+        }
+
+        // If we are already processing a previous Return, let this one through
+        guard !manager.isProcessing else {
             return Unmanaged.passUnretained(event)
         }
 
         // ─── Swallow the event and begin async styling ───
+        manager.swallowedReturnKeyDown = true
         manager.isProcessing = true
 
         // Capture the focused element (and text if possible) NOW on the main thread
@@ -330,6 +354,7 @@ private struct PasteboardBackup {
         guard let pbItems = pb.pasteboardItems else {
             return PasteboardBackup(items: nil)
         }
+
         let copies = pbItems.map { item -> NSPasteboardItem in
             let copy = NSPasteboardItem()
             for type in item.types {
