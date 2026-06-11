@@ -62,7 +62,9 @@ struct APIClient {
     /// - Throws: `APIError` on network, HTTP, or decoding failures.
     func stylize(text: String, settings: AppSettings) async throws -> String {
         // 1. Build the endpoint URL
-        guard let baseURL = settings.effectiveBaseURL else {
+        guard let baseURL = settings.effectiveBaseURL,
+              let scheme = baseURL.scheme,
+              !scheme.isEmpty else {
             throw APIError.invalidURL
         }
         let endpointURL = baseURL.appendingPathComponent("chat/completions")
@@ -162,14 +164,9 @@ struct APIClient {
         // Strip XML tags if they leak through
         let openTag = "<raw_input_text>"
         let closeTag = "</raw_input_text>"
-        if text.hasPrefix(openTag) {
-            text = String(text.dropFirst(openTag.count))
-            text = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        if text.hasSuffix(closeTag) {
-            text = String(text.dropLast(closeTag.count))
-            text = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
+        text = text.replacingOccurrences(of: openTag, with: "")
+        text = text.replacingOccurrences(of: closeTag, with: "")
+        text = text.trimmingCharacters(in: .whitespacesAndNewlines)
 
         // Replace em-dashes with comma-space
         text = text.replacingOccurrences(of: "—", with: ", ")

@@ -19,7 +19,7 @@ struct MenuBarPopupView: View {
 
     @StateObject private var viewState = PopupViewState()
 
-    private let permissionTimer = Timer.publish(every: 2.0, on: .main, in: .common).autoconnect()
+    private let permissionPublisher = DistributedNotificationCenter.default().publisher(for: NSNotification.Name("com.apple.accessibility.api"))
 
     var body: some View {
         VStack(spacing: 0) {
@@ -48,7 +48,7 @@ struct MenuBarPopupView: View {
                 .padding(EdgeInsets(top: 8, leading: 14, bottom: 10, trailing: 14))
         }
         .frame(width: 300)
-        .onReceive(permissionTimer) { _ in
+        .onReceive(permissionPublisher) { _ in
             withAnimation(.easeInOut(duration: 0.2)) {
                 viewState.hasPermission = AccessibilityHelper.isTrusted()
             }

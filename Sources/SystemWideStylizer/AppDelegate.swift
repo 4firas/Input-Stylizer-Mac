@@ -27,8 +27,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     /// Monitor for clicks outside the popover (to dismiss it).
     private var outsideClickMonitor: Any?
 
-    /// Permission polling timer — kept as property so we can restart it.
-    private weak var permissionTimer: Timer?
+    /// Retains the notification observer for accessibility permission changes.
+    private var permissionObserver: NSObjectProtocol?
 
     // MARK: - App Lifecycle
 
@@ -138,7 +138,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     // MARK: - Settings Window
 
     private func openSettingsWindow() {
-        if let window = settingsWindow, window.isVisible {
+        if let window = settingsWindow {
             window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             return
@@ -172,33 +172,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     }
 
     private func tryStartOrPollPermission() {
-        // Invalidate any existing timer
-        permissionTimer?.invalidate()
-
         if AccessibilityHelper.isTrusted() {
             let started = eventTapManager?.start() ?? false
             if started {
                 updateStatusItemIcon()
                 print("[AppDelegate] Event tap started.")
             }
-            // Even if start succeeded, keep polling to detect
-            // future permission revoke → re-grant cycles.
         }
 
-        // Poll every 2s regardless, so we catch permission changes
-        permissionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
-
-            if AccessibilityHelper.isTrusted() {
-                // Tap might fail if permission changed; restart ensures fresh tap
-                let started = self.eventTapManager?.restart() ?? false
-                if started {
+        // Observe permission changes natively via DistributedNotificationCenter
+        if permissionObserver == nil {
+            permissionObserver = DistributedNotificationCenter.default().addObserver(
+                forName: NSNotification.Name("com.apple.accessibility.api"),
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                if AccessibilityHelper.isTrusted() {
+                    let started = self.eventTapManager?.restart() ?? false
+                    if started {
+                        self.updateStatusItemIcon()
+                    }
+                } else {
+                    self.eventTapManager?.stop()
                     self.updateStatusItemIcon()
                 }
-            } else {
-                // Permission was revoked — stop the tap and grey out icon
-                self.eventTapManager?.stop()
-                self.updateStatusItemIcon()
             }
         }
     }
